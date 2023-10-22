@@ -129,6 +129,10 @@ env.bak/
 venv.bak/
 .env_ml
 env_ml/
+.ml_env
+ml_env/
+artifacts/
+.artifacts
 # Spyder project settings
 .spyderproject
 .spyproject
