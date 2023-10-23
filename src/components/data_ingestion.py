@@ -10,6 +10,9 @@ from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
 
+from src.components.model_trainer import ModelTrainer
+from src.components.model_trainer import ModelTrainerConfig
+
 @dataclass
 class DataIngestionConfig:
     train_data_path: str=os.path.join('artifacts',"train.csv")
@@ -50,12 +53,22 @@ class DataIngestion:
 
 # To check the code is working fine or not
 if __name__=="__main__":
-    obj=DataIngestion()
+    # obj=DataIngestion()
     # obj.initiate_data_ingestion()
-    train_data,test_data=obj.initiate_data_ingestion()
 
+    # obj=DataIngestion()
+    # train_data,test_data=obj.initiate_data_ingestion()
+    # data_transformation=DataTransformation()
+    # data_transformation.initiate_data_transformation(train_data,test_data)
+
+    obj=DataIngestion()
+    train_data,test_data=obj.initiate_data_ingestion()
     data_transformation=DataTransformation()
-    data_transformation.initiate_data_transformation(train_data,test_data)
+    train_arr, test_arr,_=data_transformation.initiate_data_transformation(train_data,test_data)
+    modeltrainer=ModelTrainer()
+    r2,model_name=modeltrainer.initiate_model_trainer(train_arr,test_arr)
+    print(f"Best model is {model_name} and r2 score is {r2}")
+
 
 
 # If there is error occured in src.exception or src.logger them there should be implementation of setup.py
